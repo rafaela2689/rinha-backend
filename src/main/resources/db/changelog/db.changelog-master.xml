@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <include file="07082023_1620_create_pessoa_table.xml" relativeToChangelogFile="true"/>
+    <include file="14102023_1647_add_unique_constraint.xml" relativeToChangelogFile="true"/>
+    <include file="31102023_1704_add_index_apelido.xml" relativeToChangelogFile="true"/>
+    <include file="31102023_1852_drop_null_constraint_stack.xml" relativeToChangelogFile="true"/>
+    <include file="06112023_1405_add_search_term_column_to_pessoa.xml" relativeToChangelogFile="true"/>
+
+</databaseChangeLog>

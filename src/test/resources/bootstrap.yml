@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: rinhabackend
+  profiles:
+    active: test
+  cloud:
+    config:
+      enabled: false
+embedded:
+  postgresql:
+    docker-image: postgres:11-alpine
+    enabled: false

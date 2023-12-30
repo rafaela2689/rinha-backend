@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd"
+        logicalFilePath="src/main/resources/db/changelog/">
+
+    <changeSet author="rafaela.araujo" id="Add search_term column to pessoa table">
+        <sql>
+            CREATE EXTENSION IF NOT EXISTS pg_trgm;
+
+            CREATE OR REPLACE FUNCTION generate_searchable(_nome VARCHAR, _apelido VARCHAR, _stack JSON) RETURNS TEXT AS '
+                BEGIN
+                    RETURN _nome || _apelido || _stack;
+                END;
+            ' LANGUAGE plpgsql IMMUTABLE;
+
+            ALTER TABLE pessoa
+                ADD COLUMN search_term TEXT GENERATED ALWAYS AS (generate_searchable(nome, apelido, stack)) STORED;
+
+            CREATE INDEX idx_pessoa_search_term ON pessoa USING GIST (search_term public.gist_trgm_ops (siglen='64'));
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>
